@@ -1,0 +1,25 @@
+{
+  "name": "news-fetcher",
+  "version": "1.0.0",
+  "description": "News fetcher with authenticity",
+  "main": "index.js",
+  "author": "Aditya Vyas <vyasaditya41@yahoo.in>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "client": "yarn workspace client start",
+    "server": "yarn workspace server start",
+    "client:lint": "yarn workspace client lint",
+    "server:lint": "yarn workspace server lint",
+    "start": "yarn client && server"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-prettier": "^3.1.4"
+  }
+}
