@@ -1,10 +1,20 @@
 import React from 'react';
+import { Route, Switch } from "react-router-dom";
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import Signup from './components/Signup/Signup';
+import Signin from './components/Signin/Signin';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      Hello World!
+      <Header />
+      <Switch>
+        <Route exact path="/" component={Signup} />
+        <Route exact path="/signin" component={Signin} />
+      </Switch>
+      <Footer />
     </div>
   );
 }

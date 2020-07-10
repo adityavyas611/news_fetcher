@@ -20,7 +20,7 @@ export const userRegister = async (req, res) => {
       .then(console.log('User Created'))
       .catch((err) => console.error(err));
 
-    const token = await generateJwt(newUser._id, email);
+    const token = generateJwt(newUser._id, email);
 
     res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
 
