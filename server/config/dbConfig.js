@@ -6,5 +6,5 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
     console.log(`Error Connecting to db:${err}`);
     process.exit();
   }
-  console.log(`DB is connected!`);
+  console.log('DB is connected!');
 });

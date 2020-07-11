@@ -14,7 +14,6 @@ export const userLogin = async (req, res) => {
     const comparePassword = await bcrypt.compare(password, user.password);
     if (comparePassword) {
       const token = await generateJwt(user._id, email);
-
       res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
       res.send({ token });
     } else {

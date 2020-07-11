@@ -4,6 +4,7 @@ import cors from 'cors';
 import db from './config/dbConfig';
 import { PORT } from './constants';
 import router from './routes/userRouter';
+import newsRouter from './routes/newsRouter';
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.send('This is Backend Server'));
 
 app.use('/user', router);
+app.use('/news', newsRouter);
 
 app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));

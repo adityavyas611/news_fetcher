@@ -25,13 +25,17 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await fetch('http://localhost:5000/user/register', {
+        const signupSuccess = await fetch('http://localhost:5000/user/register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
           });
+        
+        if(signupSuccess) {
+            window.location.href = '/signin';
+        }
     };
 
     return (
