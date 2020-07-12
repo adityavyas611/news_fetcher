@@ -4,6 +4,13 @@ This is a mono repo for client and server
 
 ****
 
+Objectives:
+- [x] User Authentication
+- [x] Email Notification for News Categories
+- [x] Getting news from different APIs at Different Intervals
+- [x] User can vote a piece of news as authentic, fake or not sure and see the authenticity percentage
+- [x] Frontend for showing list of news
+
 **The .env is not created because all the values are public and used for development purpose, otherwise I can use .env and share the private data through email.**
 
 ``` yarn install ``` will install all the dependencies for project
