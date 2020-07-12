@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { logger } from '../utils/logger';
 import User from '../models/User';
 import generateJwt from '../utils/generateJWT';
 
@@ -20,16 +21,7 @@ export const userLogin = async (req, res) => {
       res.status(400).send({ message: 'Password is incorrect, Please Try Again!' });
     }
   } catch (err) {
-    res.status(500).send({ message: 'Server Error!' });
-  }
-};
-
-export const getUserDetail = async (req, res) => {
-  try {
-    const { userData } = req;
-    const user = await User.findOne({ _id: userData.id }).select({ name: 1, email: 1, _id: 0 });
-    res.send(user);
-  } catch (err) {
+    logger.error(`Error Occured in userLogin: ${err}`);
     res.status(500).send({ message: 'Server Error!' });
   }
 };

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { logger } from '../utils/logger';
 import { storeNewsDataInDB } from './saveNewsIntoDB';
 import { gnews } from '../config/apiConfig';
 
@@ -20,6 +21,6 @@ export const fetchgNewsApi = async () => {
     });
     storeNewsDataInDB(responseData);
   } catch (err) {
-    console.error(err);
+    logger.error(`Error Occured in fetching news from gnews: ${err}`);
   }
 };

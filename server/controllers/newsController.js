@@ -1,3 +1,4 @@
+import { logger } from '../utils/logger';
 import News from '../models/News';
 
 export const getLatestNews = async (req, res) => {
@@ -9,6 +10,7 @@ export const getLatestNews = async (req, res) => {
       throw new Error('No News Found!');
     }
   } catch (err) {
+    logger.error(`Error Occured in getLatestNews: ${err}`);
     res.status(500).send({ message: err.message });
   }
 };
@@ -18,7 +20,7 @@ export const updateVoteForNews = async (req, res) => {
   const { authencityType, email } = req.body;
   try {
     const authenticColumn = `authencity.${authencityType}`;
-    const result = await News.findOneAndUpdate(
+    await News.findOneAndUpdate(
       { name: newsName },
       { $addToSet: { [authenticColumn]: email } }, { new: true },
     );
@@ -40,6 +42,7 @@ export const updateVoteForNews = async (req, res) => {
       throw new Error('Your Can\'t Vote!');
     }
   } catch (err) {
+    logger.error(`Error Occured in updateVoteForNews: ${err}`);
     res.status(500).send({ message: err.message });
   }
 };

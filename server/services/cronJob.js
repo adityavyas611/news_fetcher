@@ -6,6 +6,6 @@ export const newsCron = new cron.CronJob('*/1 * * * *', () => {
   fetchNewsApi();
 }).start();
 
-// export const gnewsCron = new cron.CronJob('*/1 * * * *', () => {
-//   fetchgNewsApi();
-// }).start();
+export const gnewsCron = new cron.CronJob('*/1 * * * *', () => {
+  fetchgNewsApi();
+}).start();

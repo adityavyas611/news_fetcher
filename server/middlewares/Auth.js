@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { logger } from '../utils/logger';
 import { JWT_KEY } from '../constants';
 
 const getAuthCookie = (req) => {
@@ -22,6 +23,7 @@ const ensureAuthenticated = (req, res, next) => {
     req.userData = decoded;
     next();
   } catch (error) {
+    logger.error(`Error Occured in ensureAuthenticated: ${error}`);
     res.status(401).send({ message: 'User Not Authenticated!' });
   }
 };

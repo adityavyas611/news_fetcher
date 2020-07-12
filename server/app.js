@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import { logger } from './utils/logger';
 import './config/dbConfig';
 import './services/cronJob';
 import { PORT } from './constants';
@@ -21,4 +22,4 @@ app.use(bodyParser.json());
 app.use('/user', userRouter);
 app.use('/news', newsRouter);
 
-app.listen(PORT, () => console.log(`Server listening on PORT: ${PORT}`));
+app.listen(PORT, () => logger.info(`Server listening on PORT: ${PORT}`));

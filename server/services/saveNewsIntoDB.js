@@ -1,6 +1,9 @@
+import { logger } from '../utils/logger';
 import News from '../models/News';
 import User from '../models/User';
 import { sendMail } from './userEmailService';
+
+const userPreferences = ['technology', 'sports', 'entertainment'];
 
 const sendMailToUsers = async (category) => {
   const users = await User.find({}, { email: 1, _id: 0 });
@@ -13,14 +16,13 @@ const sendMailToUsers = async (category) => {
   try {
     users.forEach(({ email }) => {
       msg.to = email;
+      logger.info('Sending Email to Subscribe Users');
       sendMail(msg);
     });
   } catch (err) {
-    console.error(err);
+    logger.error(`Error Occured in sendMailToUsers: ${err}`);
   }
 };
-
-const userPreferences = ['technology', 'sports', 'entertainment'];
 
 export const storeNewsDataInDB = (response) => {
   try {
@@ -29,11 +31,11 @@ export const storeNewsDataInDB = (response) => {
       if (userPreferences.includes(latestNews.category)) {
         await sendMailToUsers(latestNews.category);
       }
+      logger.info('Saving news to DB');
       await latestNews.save();
     });
-    return true;
   } catch (err) {
-    console.error(err);
+    logger.error(`Error while storing news to db: ${err}`);
   }
   return true;
 };

@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import { logger } from '../utils/logger';
 import User from '../models/User';
 import generateJwt from '../utils/generateJWT';
 
@@ -17,8 +18,8 @@ export const userRegister = async (req, res) => {
 
     await newUser
       .save()
-      .then(console.log('User Created'))
-      .catch((err) => console.error(err));
+      .then(logger.info('User Created'))
+      .catch((err) => logger.error(`Error in User Creation: ${err}`));
 
     const token = generateJwt(newUser._id, email);
 
@@ -26,6 +27,7 @@ export const userRegister = async (req, res) => {
 
     res.send({ token });
   } catch (err) {
+    logger.error(`Error Occured in updateVoteForNews: ${err}`);
     res.send({ message: 'User Account cannot be created!' });
   }
 };

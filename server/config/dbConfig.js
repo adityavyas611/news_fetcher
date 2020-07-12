@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
+import logger from '../utils/logger';
 import { MONGODB_URI } from '../constants';
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
   if (err) {
-    console.log(`Error Connecting to db:${err}`);
+    logger.info(`Error Connecting to db:${err}`);
     process.exit();
   }
-  console.log('DB is connected!');
+  logger.info('DB is connected!');
 });
