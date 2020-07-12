@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
 
-const Card = ({news: {name, category, country, description, authenticity, url}}) => {
+const Card = ({news: {name, category, country, description, authencity, url}}) => {
+  const [totalAuthenticity, setAuthenticty] = useState(0);
+  const calculateAuthenticity = () => {
+    const {fake, notSure, authentic} = authencity;
+
+    const fakeVotes = Math.round((fake.reduce((acc, val) => acc + val,0)) / fake.length || 0);
+    const maybeVotes = Math.round(notSure.reduce((acc, val) => acc + val,0) / notSure.length || 0);
+    const originalVotes = Math.round(authentic.reduce((acc, val) => acc + val,0) / authentic.length || 0);
+
+    setAuthenticty(fakeVotes+maybeVotes+originalVotes);
+  }
+
+  useEffect(() => calculateAuthenticity());
+
   return (
     <div className="card-container">
       <h2>{name}</h2>
+      <h4>Authenticity: {totalAuthenticity}%</h4> 
       <p>Category:{category}</p>
       <p>Country:{country}</p>
       <p>{ description }</p>

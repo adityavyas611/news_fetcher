@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import db from './config/dbConfig';
+import './config/dbConfig';
+import './services/cronJob';
 import { PORT } from './constants';
 import router from './routes/userRouter';
 import newsRouter from './routes/newsRouter';
@@ -16,8 +17,6 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.get('/', (req, res) => res.send('This is Backend Server'));
 
 app.use('/user', router);
 app.use('/news', newsRouter);

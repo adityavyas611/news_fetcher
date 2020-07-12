@@ -34,7 +34,7 @@ const CardList = (props) => {
     <div className="card-list">
       {news.map(cardnews => (
         <Card key={cardnews.id} news={cardnews} />
-      ))};
+      ))}
     </div>
   )
 };
