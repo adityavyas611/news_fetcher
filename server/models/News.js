@@ -17,6 +17,7 @@ const NewsSchema = mongoose.Schema(
         authentic: [],
       },
     },
+    totalAuthenticity: { type: Number, default: 0 },
   },
 );
 

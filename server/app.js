@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import './config/dbConfig';
-// import './services/cronJob';
+import './services/cronJob';
 import { PORT } from './constants';
 import userRouter from './routes/userRouter';
 import newsRouter from './routes/newsRouter';
