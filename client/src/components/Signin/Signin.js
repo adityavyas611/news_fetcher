@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import './Signin.css';
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 
 const Signin = () => {
     const [state, setState] = useState({
         email: "",
         password: ""
     });
+
+    let history = useHistory();
 
     const handleValueChange = (e) => {
         const { name, value } = e.target;
@@ -23,17 +25,17 @@ const Signin = () => {
       
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await fetch('http://localhost:5000/user/login', {
+        const user = await fetch('http://localhost:5000/user/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
           });
-        const tokenJson = await token.json();
-        if(tokenJson) {
-            window.location.href = '/news';
-        }
+        const userData = await user.json();
+        if(userData.name && userData.email) {
+            history.push(`/news?name=${userData.name}&email=${userData.email}`);
+       }
     };
 
     return (

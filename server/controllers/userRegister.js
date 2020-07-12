@@ -7,7 +7,7 @@ export const userRegister = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    res.status(400).send('User is already registered');
+    res.status(400).send({ message: 'User is already registered' });
   }
 
   try {
@@ -24,8 +24,8 @@ export const userRegister = async (req, res) => {
 
     res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
 
-    res.send({ error: null, token });
+    res.send({ token });
   } catch (err) {
-    res.send({ error: 'Account cannot be created!', token: null });
+    res.send({ message: 'User Account cannot be created!' });
   }
 };

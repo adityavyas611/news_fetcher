@@ -7,7 +7,7 @@ export const userLogin = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      res.status(400).send('Email Not Found, User doesn\'t Exist!');
+      res.status(400).send({ message: 'Email Not Found, User doesn\'t Exist!' });
       return;
     }
 
@@ -15,12 +15,12 @@ export const userLogin = async (req, res) => {
     if (comparePassword) {
       const token = await generateJwt(user._id, email);
       res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
-      res.send({ token });
+      res.send(user);
     } else {
-      res.status(400).send('Password is incorrect, Please Try Again!');
+      res.status(400).send({ message: 'Password is incorrect, Please Try Again!' });
     }
   } catch (err) {
-    res.status(500).send('Server Error!');
+    res.status(500).send({ message: 'Server Error!' });
   }
 };
 
@@ -30,6 +30,6 @@ export const getUserDetail = async (req, res) => {
     const user = await User.findOne({ _id: userData.id }).select({ name: 1, email: 1, _id: 0 });
     res.send(user);
   } catch (err) {
-    res.status(500).send('Server Error!');
+    res.status(500).send({ message: 'Server Error!' });
   }
 };

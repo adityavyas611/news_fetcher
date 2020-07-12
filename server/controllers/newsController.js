@@ -14,4 +14,16 @@ export const fetchLatestNews = async (req, res) => {
 };
 
 // category wise display to user
-
+export const fetchCategoryNews = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const getNews = await News.find({ category: id }, { _id: 0, __v: 0 });
+    if (getNews.length) {
+      res.send(getNews);
+    } else {
+      throw new Error('No News Found for this Category!');
+    }
+  } catch (err) {
+    res.status(500).send({ message: err.message });
+  }
+};

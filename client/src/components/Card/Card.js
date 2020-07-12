@@ -9,7 +9,7 @@ const Card = ({news: {name, category, country, description, authenticity, url}})
       <p>Country:{country}</p>
       <p>{ description }</p>
       <p><img src="./images/green.png" alt="Original" /> <img src="./images/yellow.png" alt="Neutral"/><img src="./images/red.png" alt="Fake"/></p>
-      <a href={url} alt="Link" target="_blank">Read Full News here...</a>
+      <a href={url} alt="Link" target="_blank" rel="noopener noreferrer">Read Full News here...</a>
     </div>
   );
 };

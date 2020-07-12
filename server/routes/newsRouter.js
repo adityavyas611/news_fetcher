@@ -1,16 +1,10 @@
 import express from 'express';
-import { storeNewsDataInDB } from '../services/saveNewsIntoDB';
-import { fetchLatestNews } from '../controllers/newsController';
+import { fetchLatestNews, fetchCategoryNews } from '../controllers/newsController';
 
 const newsRouter = express.Router();
 
-newsRouter.get('/', (req, res) => {
-  const isSuccessful = storeNewsDataInDB();
-  if (isSuccessful) {
-    res.send('News Inserted Successfully');
-  }
-});
-
 newsRouter.get('/latestNews', fetchLatestNews);
+
+newsRouter.get('/category/:id', fetchCategoryNews);
 
 export default newsRouter;

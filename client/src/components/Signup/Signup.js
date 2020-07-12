@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Signup.css';
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 
 const Signup = () => {
     const [state, setState] = useState({
@@ -8,6 +8,8 @@ const Signup = () => {
         email: "",
         password: ""
     });
+    
+    let history = useHistory();
 
     const handleValueChange = (e) => {
         const { name, value } = e.target;
@@ -34,7 +36,7 @@ const Signup = () => {
           });
         
         if(signupSuccess) {
-            window.location.href = '/signin';
+           history.push('/signin');
         }
     };
 
