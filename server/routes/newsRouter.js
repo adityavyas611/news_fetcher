@@ -1,10 +1,12 @@
 import express from 'express';
-import { fetchLatestNews, fetchCategoryNews } from '../controllers/newsController';
+import { getLatestNews, getNewsByCategory, updateVoteForNews } from '../controllers/newsController';
 
 const newsRouter = express.Router();
 
-newsRouter.get('/latestNews', fetchLatestNews);
+newsRouter.get('/latestNews', getLatestNews);
 
-newsRouter.get('/category/:id', fetchCategoryNews);
+newsRouter.get('/category/:id', getNewsByCategory);
+
+newsRouter.put('/updateVote/:newsName', updateVoteForNews);
 
 export default newsRouter;

@@ -21,11 +21,13 @@
     },
     "plugins": [
       "react",
-      "prettier"
+      "prettier",
+      "react-hooks"
     ],
     "rules": {
       "import/prefer-default-export": "off",
-
+      "react-hooks/exhaustive-deps": "off",
+      "react-hooks/rules-of-hooks": "error",
       "react/jsx-one-expression-per-line": [
         0,
         {

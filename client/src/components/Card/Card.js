@@ -1,19 +1,38 @@
 import React, { useState, useEffect } from "react";
 import "./Card.css";
 
-const Card = ({news: {name, category, country, description, authencity, url}}) => {
+const Card = ({news: {name, category, country, description, authencity, url}, userEmail}) => {
   const [totalAuthenticity, setAuthenticty] = useState(0);
+
   const calculateAuthenticity = () => {
     const {fake, notSure, authentic} = authencity;
+    const totalVotes = fake.length + notSure.length + authentic.length;
 
-    const fakeVotes = Math.round((fake.reduce((acc, val) => acc + val,0)) / fake.length || 0);
-    const maybeVotes = Math.round(notSure.reduce((acc, val) => acc + val,0) / notSure.length || 0);
-    const originalVotes = Math.round(authentic.reduce((acc, val) => acc + val,0) / authentic.length || 0);
-
-    setAuthenticty(fakeVotes+maybeVotes+originalVotes);
+    const authenticVotes = Math.round((authentic.length / totalVotes) * 100); 
+    setAuthenticty(authenticVotes);
   }
 
-  useEffect(() => calculateAuthenticity());
+  const handleVoteForUser = async (e) => {
+    const { target: { alt }} = e;
+    const voteInformation = {
+      email: userEmail,
+      authencityType: alt
+    };
+    const userVote = await fetch(`http://localhost:5000/news/updateVote/${name}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(voteInformation),
+    });
+    if(userVote) {
+      const msg = await userVote.json();
+      calculateAuthenticity();
+      alert(msg.message);
+    }
+  };
+
+  useEffect(() => calculateAuthenticity(), [JSON.stringify(authencity)])
 
   return (
     <div className="card-container">
@@ -22,7 +41,11 @@ const Card = ({news: {name, category, country, description, authencity, url}}) =
       <p>Category:{category}</p>
       <p>Country:{country}</p>
       <p>{ description }</p>
-      <p><img src="./images/green.png" alt="Original" /> <img src="./images/yellow.png" alt="Neutral"/><img src="./images/red.png" alt="Fake"/></p>
+      <p>
+        <img src="./images/green.png" alt="authentic" onClick={handleVoteForUser}/> 
+        <img src="./images/yellow.png" alt="notSure" onClick={handleVoteForUser} />
+        <img src="./images/red.png" alt="fake" onClick={handleVoteForUser} />
+      </p>
       <a href={url} alt="Link" target="_blank" rel="noopener noreferrer">Read Full News here...</a>
     </div>
   );

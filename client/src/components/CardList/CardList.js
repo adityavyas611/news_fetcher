@@ -13,8 +13,6 @@ const CardList = (props) => {
     setEmail(parsedUrl.searchParams.get("email"));
   }
 
-  useEffect(() => setUserInfo());
-
   const fetchNews = async () => {
     const data = await fetch('http://localhost:5000/news/latestNews', {
       method: 'GET',
@@ -28,12 +26,13 @@ const CardList = (props) => {
 
   useEffect(() => {
     fetchNews();
+    setUserInfo();
   }, []);
 
   return (
     <div className="card-list">
-      {news.map(cardnews => (
-        <Card key={cardnews.id} news={cardnews} />
+      {news.map((cardnews, idx) => (
+        <Card key={idx} news={cardnews} userEmail={email}/>
       ))}
     </div>
   )
